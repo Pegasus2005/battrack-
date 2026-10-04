@@ -1,0 +1,103 @@
+# BatTrack PCB — Final Check Report
+# Generated: 2026-10-04
+# Board: sport_tracker.kicad_pcb (KiCad 10)
+
+============================================================
+RESULT: 39/39 ALL PASS — FABRICATION READY
+============================================================
+
+--- USB-C (J1) Connections ---
+  [v] J1 A4 -> VUSB:        PASS  (VBUS power in)
+  [v] J1 B4 -> VUSB:        PASS  (VBUS power in, redundant pad)
+  [v] J1 A5 -> CC1:         PASS  (cable orientation detect)
+  [v] J1 B5 -> CC2:         PASS  (cable orientation detect)
+  [v] J1 A6 -> USB_DP:      PASS  (D+ data to ESP32 GPIO19)
+  [v] J1 A7 -> USB_DM:      PASS  (D- data to ESP32 GPIO18)
+  [v] VUSB has trace:        PASS
+  [v] USB_DP traced + via:   PASS  (F.Cu -> via -> B.Cu -> ESP32)
+  [v] USB_DM traced + via:   PASS  (F.Cu -> via -> B.Cu -> ESP32)
+  [v] CC1 traced:            PASS  (-> R2 5.1K pulldown)
+  [v] CC2 traced:            PASS  (-> R3 5.1K pulldown)
+
+--- TP4054 LiPo Charger (U3) — SOT-23-5 ---
+  [v] U3 pin1 -> CHRG_STAT: PASS  (charge status to ESP32)
+  [v] U3 pin2 -> GND:       PASS  (datasheet correct)
+  [v] U3 pin3 -> VBAT:      PASS  (battery output)
+  [v] U3 pin4 -> VUSB:      PASS  (VIN from USB-C VBUS)
+  [v] U3 pin5 -> PROG:      PASS  (current set pin)
+  [v] R4 (20K) -> PROG:     PASS  (sets charge current = 1000/20K = 50mA, safe for 100mAh LiPo)
+  [v] VBAT traced:           PASS
+  [v] CHRG_STAT traced:      PASS
+  [v] PROG traced:           PASS
+
+--- SPI Bus: ESP32-C3 (U1) <-> QMI8658C IMU (U2) ---
+  [v] SPI_SCK  trace + via: PASS  (F.Cu -> via -> B.Cu)
+  [v] SPI_MISO trace + via: PASS  (F.Cu -> via -> B.Cu)
+  [v] SPI_MOSI trace + via: PASS  (F.Cu -> via -> B.Cu)
+  [v] SPI_CS   trace + via: PASS  (F.Cu -> via -> B.Cu)
+  [v] IMU_INT1 trace + via: PASS  (motion interrupt to ESP32)
+
+--- RGB LED: WS2812B-2020 (D1) ---
+  [v] D1 pad1 -> VBAT:      PASS  (VDD, 3.7V from LiPo)
+  [v] D1 pad2 -> NC:        PASS  (DOUT, intentionally unconnected — single LED)
+  [v] D1 pad3 -> GND:       PASS
+  [v] D1 pad4 -> LED_GPIO:  PASS  (DIN, 1-wire NeoPixel protocol)
+  [v] LED_GPIO traced:       PASS
+
+--- Power Rails and Control ---
+  [v] CHIP_EN traced:        PASS  (-> R5 10K pullup to VBAT)
+  [v] BTN_GPIO traced:       PASS  (-> SW1 boot/user button)
+  [v] ANT_RF traced:         PASS  (1.5mm trace to ANT1 chip antenna)
+  [v] R2 (5.1K) -> CC1:     PASS  (USB-C CC1 pulldown)
+  [v] R3 (5.1K) -> CC2:     PASS  (USB-C CC2 pulldown)
+
+--- Board Specifications ---
+  [v] Board size:            PASS  22.1 x 16.1 mm (clean rectangle, no edge slot)
+  [v] Board thickness:       PASS  0.8mm FR4
+  [v] Copper layers:         PASS  2 (F.Cu + B.Cu)
+  [v] GND copper pours:      PASS  2 zones (F.Cu + B.Cu, antenna keepout on F.Cu)
+
+============================================================
+SUMMARY
+============================================================
+
+  Board file    : sport_tracker.kicad_pcb
+  Board size    : 22 x 16 mm (clean rectangle)
+  Thickness     : 0.8 mm
+  Layers        : 2 copper
+  Components    : 20
+  Nets          : 18 (all routed)
+  Traces        : 46 segments
+  Vias          : 42 (28 GND stitch + 14 signal)
+  Unconnected   : 0 real (20 intentional NC — unused GPIOs + IMU aux)
+
+  Intentional NC pads (not errors):
+    D1 pad 2      — DOUT, no LED chain
+    U1 pads 12,14,15,19,21-26,28,29,31,32 — unused ESP32 GPIOs
+    U2 pads 7,8,9,13,14 — IMU auxiliary I2C + OIS (not used)
+
+  Gerber ZIP    : sport_tracker_gerbers.zip (14 files, ready to upload)
+  BOM           : bom.csv (20 components, ~$3.50/board)
+  Est. total    : ~$6.50/board (BOM + JLCPCB 5-piece fab)
+
+  USB-C function: Charging (VBUS->TP4054->LiPo) +
+                  Flashing/Debug (D+/D- -> ESP32-C3 built-in USB JTAG)
+  Antenna       : External chip antenna (ANT1) required —
+                  ESP32-C3FN4 is bare chip, no built-in antenna
+  Charge rate   : 50mA (C/2 for 100mAh LiPo — safe)
+  BLE range     : ~10m indoor typical (chip antenna)
+  IMU range     : Accel +-16g, Gyro +-2048 deg/s
+  Sports covered: Cricket, Baseball, Badminton, Pickleball,
+                  Tennis, Squash, Table Tennis, Hockey,
+                  Lacrosse, Padel, Golf, and all racket/bat sports
+
+============================================================
+FABRICATION CHECKLIST
+============================================================
+
+  [ ] Upload sport_tracker_gerbers.zip to JLCPCB or PCBWay
+  [ ] Select: 2 layers, 0.8mm, HASL or ENIG, green soldermask
+  [ ] Order 5-10 boards for prototype run
+  [ ] Source components per bom.csv
+  [ ] Note: U1 (QFN-32) and U2 (LGA-14) require reflow or hot-air soldering
+  [ ] Flash firmware via USB-C (hold BOOT button on SW1 while connecting)
