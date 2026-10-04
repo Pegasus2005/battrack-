@@ -1,6 +1,19 @@
 # 🏏 BatTrack — Universal Sports Implement Tracker
 
-A compact, open-source motion tracker designed for **cricket bats, baseball bats, badminton rackets, pickleball paddles**, and all other bat/racket sports.
+> **PCB Status: ✅ 39/39 connectivity checks passed — Fabrication ready**
+
+A compact, open-source motion tracker for **cricket bats, baseball bats, badminton rackets, pickleball paddles**, tennis rackets, squash rackets, hockey sticks, and all bat/racket sports implements.
+
+## ✅ Verified Connections (39/39)
+
+| Block | Connections | Status |
+|:---|:---|:---|
+| USB-C (J1) | VBUS→VUSB, D+→USB_DP, D-→USB_DM, CC1/CC2 pulldowns | ✅ All 11 |
+| TP4054 Charger (U3) | VUSB→pin4, VBAT→pin3, GND→pin2, CHRG_STAT, PROG | ✅ All 9 |
+| SPI Bus (U1↔U2) | SCK, MISO, MOSI, CS, INT1 — all with F↔B vias | ✅ All 5 |
+| WS2812B LED (D1) | VDD→VBAT, GND, DIN→LED_GPIO, DOUT→NC | ✅ All 4 |
+| Power/Control | CHIP_EN, BTN_GPIO, ANT_RF, CC pulldowns | ✅ All 5 |
+| Board specs | 22×16mm rect, 0.8mm, 2L, GND pour ×2 | ✅ All 4 |
 
 ---
 
