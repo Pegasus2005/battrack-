@@ -263,7 +263,7 @@
 				)
 			)
 		)
-		(property "Value" "ESP32-C3FN4"
+		(property "Value" "ESP32-C3FH4"
 			(at 0 4 0)
 			(layer "F.Fab")
 			(uuid "f1000001-0001-0001-0001-000000000002")
@@ -952,7 +952,7 @@
 				)
 			)
 		)
-		(property "Value" "QMI8658C"
+		(property "Value" "QMI8658A"
 			(at 0 2.5 0)
 			(layer "B.Fab")
 			(uuid "f1000002-0002-0002-0002-000000000002")
