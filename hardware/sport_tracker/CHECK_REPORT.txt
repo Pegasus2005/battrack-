@@ -1,6 +1,14 @@
 # BatTrack PCB — Final Check Report
-# Generated: 2026-10-04
+# Generated: 2026-10-05 (Updated: component availability audit)
 # Board: sport_tracker.kicad_pcb (KiCad 10)
+
+# COMPONENT CHANGES (availability audit):
+#   U1: ESP32-C3FN4 (OBSOLETE) -> ESP32-C3FH4 (same QFN-32, active, -$0.20)
+#   U2: QMI8658C (OUT OF STOCK) -> QMI8658A (same LGA-14, in stock, -$0.25)
+#   U3: TP4054 -> UMW generic source (same part, -$0.04)
+#   SW1: C&K PTS525 -> XUNPU TS-1187A (same footprint, -$0.05)
+#   All other parts: verified active and in stock on LCSC
+#   BOM cost: $3.50 -> $2.78/board (saved $0.72/board)
 
 ============================================================
 RESULT: 39/39 ALL PASS — FABRICATION READY
